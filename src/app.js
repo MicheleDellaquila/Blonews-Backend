@@ -1,18 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const axios = require('axios');
-const articlesModelSchema = require('./api/models/articlesModel');
-const schedule = require('node-schedule');
-const getArticles = require('./api/routers/articles/getArticles');
-const getArticle = require('./api/routers/articles/getArticle');
-const signUp = require('./api/routers/auth/signUp');
-const login = require('./api/routers/auth/login');
-const resetPassword = require('./api/routers/auth/resetPassword');
-const getWishlist = require('./api/routers/wishlist/getWishlist');
-const saveWishlist = require('./api/routers/wishlist/saveWishlist');
-const deleteWishlist = require('./api/routers/wishlist/deleteWishlist');
-const getCategory = require('./api/routers/articles/getCategory');
 require('dotenv').config();
 
 // active express
