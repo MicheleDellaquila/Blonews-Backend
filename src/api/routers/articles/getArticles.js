@@ -1,6 +1,8 @@
 const express = require('express');
-const articlesModelSchema = require('../../models/articlesModel');
-const moment = require('moment');
+const getTodayNews = require('../../../utils/getTodayNews');
+const getMostViewedNews = require('../../../utils/getMostViewed');
+const getCommunityNews = require('../../../utils/getCommunityNews');
+const getTechNews = require('../../../utils/getTechNews');
 
 // router
 const router = express.Router();
@@ -8,27 +10,18 @@ const router = express.Router();
 // get articles
 router.get('/', async (_, res) => {
   try {
-    const today = moment().startOf('day');
-    const end = moment(today).endOf('day').toDate();
-    const articles = await articlesModelSchema.find({
-      publishedAt: {
-        $gte: today.toDate(),
-        $lt: end,
-      },
-    });
-
-    // check if articles is retrive
-    if (articles.length === 0) {
-      return res.status(200).send({
-        message: 'Non è stato possibile ritrovare gli articoli',
-      });
-    }
+    const todayNews = getTodayNews();
+    const mostViewedNews = getMostViewedNews();
+    const communityNews = getCommunityNews();
+    const techNews = getTechNews();
 
     return res.status(200).send({
-      articles: articles,
-    });
+      todayNews: todayNews.length === 0 ? "Articoli non trovati" : todayNews,
+      mostViewedNews: mostViewedNews.length === 0 ? "Articoli non trovati" : mostViewedNews,
+      communityNews: communityNews.length === 0 ? "Articoli non trovati" : communityNews,
+      techNews: techNews.length === 0 ? "Articoli non trovati" : techNews,
+    })
   } catch (e) {
-    console.log(e);
     return res.status(500).send({
       message: 'Abbiamo riscontrato un problema',
     });
