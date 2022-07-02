@@ -10,17 +10,17 @@ const router = express.Router();
 // get articles
 router.get('/', async (_, res) => {
   try {
-    const todayNews = getTodayNews();
-    const mostViewedNews = getMostViewedNews();
-    const communityNews = getCommunityNews();
-    const techNews = getTechNews();
+    const todayNews = await getTodayNews();
+    const mostViewedNews = await getMostViewedNews();
+    const communityNews = await getCommunityNews();
+    const techNews = await getTechNews();
 
     return res.status(200).send({
-      todayNews: todayNews.length === 0 ? "Articoli non trovati" : todayNews,
-      mostViewedNews: mostViewedNews.length === 0 ? "Articoli non trovati" : mostViewedNews,
-      communityNews: communityNews.length === 0 ? "Articoli non trovati" : communityNews,
-      techNews: techNews.length === 0 ? "Articoli non trovati" : techNews,
-    })
+      todayNews: todayNews,
+      mostViewedNews: mostViewedNews,
+      communityNews: communityNews,
+      techNews: techNews,
+    });
   } catch (e) {
     return res.status(500).send({
       message: 'Abbiamo riscontrato un problema',

@@ -1,15 +1,15 @@
 const express = require('express');
-const articlesModelSchema = require('../../models/articlesModel');
+const articleSchema = require('../../models/articleModel');
 const axios = require('axios');
 
 // router
 const router = express.Router();
 
 // get article
-router.get('/article/:title', async (req, res) => {
+router.get('/articolo/:title', async (req, res) => {
   try {
-    const article = await articlesModelSchema.findOne({
-      $title: { $search: req.params.title.split('-').join(' ') },
+    const article = await articleSchema.findOne({
+      $title: { $search: req.params.title },
     });
 
     // check if article is find
@@ -32,7 +32,6 @@ router.get('/article/:title', async (req, res) => {
       inWishlist: !!articleId,
     });
   } catch (e) {
-    console.log(e);
     return res.status(500).send({
       message: 'Abbiamo riscontrato un problema',
     });

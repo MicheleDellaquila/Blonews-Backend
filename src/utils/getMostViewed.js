@@ -1,4 +1,4 @@
-const articleSchema = require('../../models/articleModel');
+const articleSchema = require('../api/models/articleModel');
 
 const getMostViewedNews = async () => {
   try {

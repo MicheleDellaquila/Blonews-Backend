@@ -2,14 +2,9 @@ const articleSchema = require('../api/models/articleModel');
 
 const clearNews = async () => {
   try {
-    const isSuccess = articleSchema.deleteMany(
-      { source: 'newsApi' },
-      {
-        publishedAt: {
-          $lte: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-        },
-      },
-    );
+    const isSuccess = await articleSchema.deleteMany({
+      source: 'newsApi',
+    });
 
     if (!!isSuccess) {
       console.log('Articles deleted');

@@ -1,9 +1,9 @@
-const articleSchema = require('../../models/articleModel');
+const articleSchema = require('../api/models/articleModel');
 
-const getTechNews = async () => {
+const getCommunityNews = async () => {
   try {
     const articles = articleSchema
-      .find({ category: { $nin: 'tecnologia' } })
+      .find({ category: { $nin: 'tecnologia' }, source: { $nin: 'newsApi' } })
       .limit(3);
     return articles;
   } catch (e) {
@@ -11,4 +11,4 @@ const getTechNews = async () => {
   }
 };
 
-module.exports = getTechNews;
+module.exports = getCommunityNews;
