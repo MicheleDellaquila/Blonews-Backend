@@ -1,6 +1,6 @@
 const express = require('express');
 const verifyToken = require('../../middleware/verifyToken');
-const whishlistModelSchema = require('../../models/wishlistModel');
+const whishlistModel = require('../../models/wishlistModel');
 const ObjectId = require('mongodb').ObjectId;
 
 // router
@@ -8,8 +8,8 @@ const router = express.Router();
 
 // save wishlist
 router.post('/saveWishlist', verifyToken, async (req, res) => {
-  const { userId, articleId } = req.body;
   try {
+    const { userId, articleId } = req.body;
     const user = await usersModelSchema.findOne({ _id: new ObjectId(userId) });
 
     // if _id is not correct
@@ -20,7 +20,7 @@ router.post('/saveWishlist', verifyToken, async (req, res) => {
     }
 
     // save article
-    const articleSaved = await whishlistModelSchema.create({
+    const articleSaved = await whishlistModel.create({
       userId: userId,
       articleId: articleId,
     });

@@ -27,6 +27,7 @@ const newsApi = async () => {
       editorialBoard: article.source.name,
       source: 'newsApi',
       author: article.author,
+      views: 0,
     };
   });
   const isSuccess = await articleSchema.insertMany(articles);
