@@ -1,5 +1,5 @@
 const express = require('express');
-const usersModelSchema = require('../../models/usersModel');
+const userSchema = require('../../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -11,7 +11,7 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await usersModelSchema.findOne({ email: email });
+    const user = await userSchema.findOne({ email: email });
 
     // if email not correct
     if (!user) {
@@ -19,9 +19,10 @@ router.post('/login', async (req, res) => {
         message: 'Utente non esistente , riprova',
       });
     }
+
+    // check password
     const validatePassword = await bcrypt.compare(password, user.password);
 
-    // if user not exist
     if (!validatePassword) {
       return res.status(401).send({
         message: 'Password invalida',

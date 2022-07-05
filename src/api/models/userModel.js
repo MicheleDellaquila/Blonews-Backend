@@ -5,6 +5,9 @@ const usersModel = new Schema(
     id: {
       type: Types.ObjectId,
     },
+    avatar: {
+      type: String,
+    },
     name: {
       type: String,
       required: true,

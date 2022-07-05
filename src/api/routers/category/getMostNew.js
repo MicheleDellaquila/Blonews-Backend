@@ -4,7 +4,7 @@ const articleSchema = require('../../models/articleModel');
 // router
 const router = express.Router();
 
-// get article
+// filter for most news
 router.get('/categoria/:name/mostNew', async (req, res) => {
   try {
     const articlesMostNew = await articleSchema.find(

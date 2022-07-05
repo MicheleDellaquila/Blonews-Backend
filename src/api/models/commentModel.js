@@ -17,7 +17,9 @@ const commentSchema = new Schema(
       type: Date,
       required: true,
     },
-    response: [{}]
+    response: {
+      type: Object
+    },
   },
   { versionKey: false },
 );

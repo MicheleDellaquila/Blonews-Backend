@@ -4,7 +4,7 @@ const articleSchema = require('../../models/articleModel');
 // router
 const router = express.Router();
 
-// get article
+// get categoria
 router.get('/categoria/:name', async (req, res) => {
   try {
     const articlesTopic = await articleSchema.find({

@@ -4,7 +4,7 @@ const articleSchema = require('../../models/articleModel');
 // router
 const router = express.Router();
 
-// get article
+// filter for popular
 router.get('/categoria/:name/popular', async (req, res) => {
   try {
     const popularArticles = await articleSchema.find().sort({ views: -1 });

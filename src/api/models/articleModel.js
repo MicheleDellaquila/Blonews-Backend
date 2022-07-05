@@ -45,6 +45,9 @@ const articleSchema = new Schema(
     author: {
       type: String,
     },
+    idUser: {
+      type: String,
+    },
   },
   { versionKey: false },
 );
