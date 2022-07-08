@@ -36,7 +36,7 @@ const start = async () => {
     );
 
     // save articles from news api each day at 24:00
-    schedule.scheduleJob('0 0 * * * *', async () => {
+    schedule.scheduleJob('0 0 * * *', async () => {
       newsApi();
     });
 

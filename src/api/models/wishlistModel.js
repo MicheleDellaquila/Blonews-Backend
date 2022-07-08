@@ -17,5 +17,5 @@ const wishlistModel = new Schema(
   { versionKey: false },
 );
 
-const wishlistModelSchema = model('wishlist', wishlistModel, 'Wishlist');
+const wishlistModelSchema = model('wishlist', wishlistModel, 'Wishlists');
 module.exports = wishlistModelSchema;

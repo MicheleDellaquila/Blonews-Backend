@@ -4,7 +4,7 @@ const articleSchema = require('../api/models/articleModel');
 const newsApi = async () => {
   const response = await axios({
     method: 'GET',
-    url: `https://newsapi.org/v2/top-headlines?country=${process.env.NEWS__LANGUAGE}&apiKey=${process.env.NEWS__ITA_KEY}`,
+    url: `https://newsapi.org/v2/top-headlines?country=${process.env.NEWS__LANGUAGE}&pageSize=14&apiKey=${process.env.NEWS__ITA_KEY}`,
     data: null,
   });
 
@@ -21,13 +21,14 @@ const newsApi = async () => {
       image: article.urlToImage,
       description: article.description,
       content: article.content,
-      category: article.category || 'notizie__generali',
+      category: article.category || 'cronaca',
       externalUrlArticle: article.url,
       publishedAt: article.publishedAt,
       editorialBoard: article.source.name,
       source: 'newsApi',
       author: article.author,
       views: 0,
+      comment: []
     };
   });
   const isSuccess = await articleSchema.insertMany(articles);

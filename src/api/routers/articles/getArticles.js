@@ -10,10 +10,10 @@ const router = express.Router();
 // get articles
 router.get('/', async (_, res) => {
   try {
-    const todayNews = await getTodayNews();
-    const mostViewedNews = await getMostViewedNews();
-    const communityNews = await getCommunityNews();
-    const techNews = await getTechNews();
+    const todayNews = await getTodayNews(res);
+    const mostViewedNews = await getMostViewedNews(res);
+    const communityNews = await getCommunityNews(res);
+    const techNews = await getTechNews(res);
 
     return res.status(200).send({
       todayNews: todayNews,
