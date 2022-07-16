@@ -1,8 +1,5 @@
 const express = require('express');
-const getTodayNews = require('../../../utils/getTodayNews');
-const getMostViewedNews = require('../../../utils/getMostViewed');
-const getCommunityNews = require('../../../utils/getCommunityNews');
-const getTechNews = require('../../../utils/getTechNews');
+const articleSchema = require('../../models/articleModel');
 
 // router
 const router = express.Router();
@@ -10,18 +7,13 @@ const router = express.Router();
 // get articles
 router.get('/', async (_, res) => {
   try {
-    const todayNews = await getTodayNews(res);
-    const mostViewedNews = await getMostViewedNews(res);
-    const communityNews = await getCommunityNews(res);
-    const techNews = await getTechNews(res);
+    const articles = await articleSchema.find({});
 
     return res.status(200).send({
-      todayNews: todayNews,
-      mostViewedNews: mostViewedNews,
-      communityNews: communityNews,
-      techNews: techNews,
+      articles: articles,
     });
   } catch (e) {
+    console.log(e);
     return res.status(500).send({
       message: 'Abbiamo riscontrato un problema',
     });

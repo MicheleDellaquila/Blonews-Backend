@@ -1,5 +1,6 @@
 const express = require('express');
 const articleSchema = require('../../models/articleModel');
+const userSchema = require('../../models/userModel');
 const ObjectId = require('mongodb').ObjectId;
 const verifyToken = require('../../middleware/verifyToken');
 
@@ -12,7 +13,7 @@ router.post('/createComment', verifyToken, async (req, res) => {
     const { idArticle, idUser, content } = req.body;
 
     // search user
-    const user = idUser.findById({
+    const user = await userSchema.findById({
       _id: new ObjectId(idUser),
     });
 
@@ -48,6 +49,7 @@ router.post('/createComment', verifyToken, async (req, res) => {
       updateArticle: newArticle,
     });
   } catch (e) {
+    console.log(e);
     return res.status(500).send({
       message: 'Abbiamo riscontrato un problema',
     });

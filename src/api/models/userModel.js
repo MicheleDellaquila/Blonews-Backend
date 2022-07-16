@@ -2,7 +2,7 @@ const { Schema, model, Types } = require('mongoose');
 
 const usersModel = new Schema(
   {
-    id: {
+    _id: {
       type: Types.ObjectId,
     },
     avatar: {

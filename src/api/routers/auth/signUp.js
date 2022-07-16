@@ -40,9 +40,11 @@ router.post('/signUp', Storage.single('avatar'), async (req, res) => {
 
     // save user into db
     const user = await usersModelSchema.create({
-      avatar: `http://localhost:3001/uploads/${req.header('Upload')}/${
-        req.file.filename
-      }`,
+      avatar: req.file
+        ? `http://localhost:3001/uploads/${req.header('Upload')}/${
+            req.file.filename
+          }`
+        : '',
       name: name,
       surname: surname,
       password: hashedPassword,

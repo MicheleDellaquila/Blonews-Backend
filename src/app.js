@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const schedule = require('node-schedule');
 const newsApi = require('./utils/newsApi');
+const getArticlesHome = require('./api/routers/articles/getArticlesHome');
 const getArticles = require('./api/routers/articles/getArticles');
 const getArticle = require('./api/routers/articles/getArticle');
 const viewArticle = require('./api/routers/articles/viewArticle');
@@ -43,6 +44,7 @@ const start = async () => {
     // API
     // Articles
     connection.use(getArticles);
+    connection.use(getArticlesHome);
     connection.use(getArticle);
     connection.use(viewArticle);
 
