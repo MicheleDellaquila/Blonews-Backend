@@ -10,6 +10,7 @@ const viewArticle = require('./api/routers/articles/viewArticle');
 const getTopic = require('./api/routers/category/getTopic');
 const getMostNews = require('./api/routers/category/getMostNew');
 const getPopular = require('./api/routers/category/getPopular');
+const getCategoryNews = require('./api/routers/category/getCategoryNews');
 const createComment = require('./api/routers/comments/createComment');
 const responseComment = require('./api/routers/comments/responseComment');
 const getWishlist = require('./api/routers/wishlist/getWishlist');
@@ -49,6 +50,7 @@ const start = async () => {
     connection.use(viewArticle);
 
     // Category
+    connection.use(getCategoryNews);
     connection.use(getTopic);
     connection.use(getMostNews);
     connection.use(getPopular);

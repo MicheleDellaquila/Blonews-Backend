@@ -45,7 +45,9 @@ router.patch('/responseComment', verifyToken, async (req, res) => {
       );
 
       return res.status(200).send({
-        updateArticle: updateArticle,
+        comment: updateArticle.comments.find(
+          (comment) => comment.idUser === String(user._id),
+        ),
       });
     }
   } catch (e) {
