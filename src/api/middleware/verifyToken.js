@@ -12,9 +12,7 @@ const verifyToken = (req, res, next) => {
       next();
     }
   } catch (error) {
-    return res.status(401).send({
-      message: 'Non sei autorizzato. Sessione scaduta',
-    });
+    throw new Error('Non sei autorizzato. Sessione scaduta');
   }
 };
 

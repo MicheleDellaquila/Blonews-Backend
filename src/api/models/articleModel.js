@@ -3,7 +3,7 @@ const commentSchema = require('./commentModel');
 
 const articleSchema = new Schema(
   {
-    id: {
+    _id: {
       type: Types.ObjectId,
     },
     title: {

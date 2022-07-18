@@ -9,6 +9,12 @@ const commentSchema = new Schema(
       type: String,
       required: true,
     },
+    avatar: {
+      type: String,
+    },
+    fullName: {
+      type: String,
+    },
     content: {
       type: String,
       required: true,

@@ -18,17 +18,21 @@ router.post('/createComment', verifyToken, async (req, res) => {
     });
 
     // save comment into db
-    const newArticle = await articleSchema.findOneAndUpdate(
+    const newArticle = await articleSchema.findByIdAndUpdate(
       { _id: new ObjectId(idArticle) },
       {
         $set: {
           comments: {
-            user: user,
+            idUser: user._id,
+            fullName: user.name + ' ' + user.surname,
+            avatar: user.avatar ?? '',
             content: content,
             publishedAt: new Date(),
             response: {
               _id: '',
-              idUser: '',
+              idUser: null,
+              fullName: '',
+              avatar: '',
               content: '',
               publishedAt: null,
             },
@@ -40,16 +44,15 @@ router.post('/createComment', verifyToken, async (req, res) => {
 
     // check if comment was update
     if (Object.keys(newArticle).length === 0) {
-      return res.status(500).send({
-        message: 'Non è stato possibile salvare il tuo commento',
-      });
+      throw new Exception('Non è stato possibile salvare il commento');
     }
 
     return res.status(200).send({
-      updateArticle: newArticle,
+      comment: newArticle.comments.find(
+        (comment) => comment.idUser === String(user._id),
+      ),
     });
   } catch (e) {
-    console.log(e);
     return res.status(500).send({
       message: 'Abbiamo riscontrato un problema',
     });

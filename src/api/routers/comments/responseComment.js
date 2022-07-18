@@ -1,4 +1,5 @@
 const express = require('express');
+const userSchema = require('../../models/userModel');
 const articleSchema = require('../../models/articleModel');
 const ObjectId = require('mongodb').ObjectId;
 const verifyToken = require('../../middleware/verifyToken');
@@ -10,6 +11,11 @@ const router = express.Router();
 router.patch('/responseComment', verifyToken, async (req, res) => {
   try {
     const { idArticle, idUserComment, idUser, content } = req.body;
+
+    // search user
+    const user = await userSchema.findById({
+      _id: new ObjectId(idUser),
+    });
 
     // search article and indexComment
     const article = await articleSchema.findById({
@@ -28,6 +34,8 @@ router.patch('/responseComment', verifyToken, async (req, res) => {
             [`comments.${indexComment}.response`]: {
               _id: ObjectId(),
               idUser: idUser,
+              fullName: user.name + ' ' + user.surname,
+              avatar: user.avatar ?? '',
               content: content,
               publishedAt: new Date(),
             },
@@ -41,7 +49,6 @@ router.patch('/responseComment', verifyToken, async (req, res) => {
       });
     }
   } catch (e) {
-    console.log(e);
     return res.status(500).send({
       message: 'Abbiamo riscontrato un problema',
     });
